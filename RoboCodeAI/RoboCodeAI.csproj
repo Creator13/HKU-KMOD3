@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CVB</RootNamespace>
-    <AssemblyName>CVB.MyRobot_V1.0</AssemblyName>
+    <AssemblyName>CVB.Peter</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>8</LangVersion>
@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyRobot.cs" />
+    <Compile Include="Peter.cs" />
     <Compile Include="Nodes\Action.cs" />
     <Compile Include="Nodes\Blackboard.cs" />
     <Compile Include="Nodes\BTNode.cs" />

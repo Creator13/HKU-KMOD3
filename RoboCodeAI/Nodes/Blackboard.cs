@@ -2,6 +2,6 @@
 
 namespace CVB {
     public class Blackboard {
-        public Robot robotInstance;
+        public Peter robot;
     }
 }

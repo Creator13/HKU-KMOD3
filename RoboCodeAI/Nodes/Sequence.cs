@@ -1,14 +1,9 @@
-﻿using CVB;
-
-namespace BehaviourTree {
+﻿namespace BehaviourTree {
     public class Sequence : CompositeNode {
-        private readonly Blackboard blackboard;
-        
-        public Sequence(Blackboard blackboard, params BTNode[] children) {
-            this.blackboard = blackboard;
+        public Sequence(params BTNode[] children) {
             this.children = children;
         }
-        
+
         public override NodeStatus Run() {
             foreach (var child in children) {
                 if (child.Run() == NodeStatus.Failed) {
