@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CVB</RootNamespace>
     <AssemblyName>CVB.Peter</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
@@ -38,17 +38,27 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionNodes\AdjustGunDirectionForTargetSpeed.cs" />
+    <Compile Include="ActionNodes\EnergyConditional.cs" />
+    <Compile Include="ActionNodes\Fire.cs" />
+    <Compile Include="ActionNodes\InTargetRange.cs" />
+    <Compile Include="ActionNodes\MoveToTarget.cs" />
+    <Compile Include="ActionNodes\TurnGunToTarget.cs" />
+    <Compile Include="ActionNodes\TurnToTarget.cs" />
+    <Compile Include="ActionNodes\PerformScan.cs" />
+    <Compile Include="ActionNodes\SetColor.cs" />
+    <Compile Include="Decorators\Invert.cs" />
+    <Compile Include="Decorators\SuccessIfFailed.cs" />
+    <Compile Include="FiringRange.cs" />
     <Compile Include="Peter.cs" />
     <Compile Include="Nodes\Action.cs" />
     <Compile Include="Nodes\Blackboard.cs" />
     <Compile Include="Nodes\BTNode.cs" />
     <Compile Include="Nodes\CompositeNode.cs" />
     <Compile Include="Nodes\Decorator.cs" />
-    <Compile Include="Nodes\Inverter.cs" />
     <Compile Include="Nodes\Selector.cs" />
     <Compile Include="Nodes\Sequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

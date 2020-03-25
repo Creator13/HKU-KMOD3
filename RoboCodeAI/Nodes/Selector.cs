@@ -5,6 +5,8 @@
         }
 
         public override NodeStatus Run() {
+            if (children.Length == 0) return NodeStatus.Success;
+            
             foreach (var child in children) {
                 if (child.Run() == NodeStatus.Success) {
                     return NodeStatus.Success;

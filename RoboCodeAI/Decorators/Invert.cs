@@ -1,8 +1,6 @@
 ﻿namespace BehaviourTree {
-    public class Inverter : Decorator {
-        public Inverter(BTNode child) {
-            this.child = child;
-        }
+    public class Invert : Decorator {
+        public Invert(BTNode child) : base(child) { }
 
         public override NodeStatus Run() {
             var res = child.Run();
