@@ -4,7 +4,7 @@ using CVB;
 namespace BehaviourTree {
     public class SetColor : Action {
         private Color color;
-        
+
         public SetColor(Blackboard bb, Color c) : base(bb) {
             color = c;
         }

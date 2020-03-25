@@ -10,7 +10,7 @@ namespace BehaviourTree {
             var evt = blackboard.robot.LastScanEvent;
 
             if (evt == null) return NodeStatus.Failed;
-            
+
             var absoluteBearing = blackboard.robot.Heading + evt.Bearing;
             var bearingFromGun = Utils.NormalRelativeAngleDegrees(absoluteBearing - blackboard.robot.GunHeading);
 
@@ -20,7 +20,7 @@ namespace BehaviourTree {
             else if (bearingFromGun > 0) {
                 blackboard.robot.TurnGunRight(Math.Abs(bearingFromGun));
             }
-            
+
             return NodeStatus.Success;
         }
     }

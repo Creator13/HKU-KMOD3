@@ -15,10 +15,10 @@
             if (minDistance > targetDistance) {
                 throw new System.ArgumentException("Minimum distance cannot be larger than target distance");
             }
-            
+
             this.minDistance = minDistance;
             this.targetDistance = targetDistance;
-            this.maxDistance = maxDistance;    
+            this.maxDistance = maxDistance;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CVB {
             };
 
             IsAdjustGunForRobotTurn = true;
-            
+
             var bt = BuildBehaviorTree(bb);
 
             while (true) {
