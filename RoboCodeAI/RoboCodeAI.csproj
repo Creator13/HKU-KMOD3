@@ -43,10 +43,14 @@
   <ItemGroup>
     <Compile Include="ActionNodes\AdjustGunDirectionForTargetSpeed.cs" />
     <Compile Include="ActionNodes\EnergyConditional.cs" />
+    <Compile Include="ActionNodes\ExecutePending.cs" />
     <Compile Include="ActionNodes\Fire.cs" />
     <Compile Include="ActionNodes\InTargetRange.cs" />
+    <Compile Include="ActionNodes\Move.cs" />
+    <Compile Include="ActionNodes\MoveRandom.cs" />
     <Compile Include="ActionNodes\MoveToTarget.cs" />
     <Compile Include="ActionNodes\TurnGunToTarget.cs" />
+    <Compile Include="ActionNodes\TurnRandom.cs" />
     <Compile Include="ActionNodes\TurnToTarget.cs" />
     <Compile Include="ActionNodes\PerformScan.cs" />
     <Compile Include="ActionNodes\SetColor.cs" />
@@ -62,6 +66,7 @@
     <Compile Include="Nodes\Selector.cs" />
     <Compile Include="Nodes\Sequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

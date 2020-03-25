@@ -40,7 +40,7 @@ namespace CVB {
         }
 
         private static BTNode BuildBehaviorTree(Blackboard bb) {
-            const double hpSwitch1 = 75;
+            const double hpSwitch1 = 50;
             const double hpSwitch2 = 30;
 
             var range = new FiringRange(75, 150, 200);
@@ -63,8 +63,14 @@ namespace CVB {
                     )
                 )
             );
-            var evasiveTree = new Sequence();
-            var frenzyTree = new Sequence();
+            var evasiveTree = new Sequence(
+                new MoveRandom(bb, -150, 150, true),
+                new TurnRandom(bb, -100, 100, true),
+                new ExecutePending(bb)
+            );
+            var frenzyTree = new Sequence(
+                
+            );
 
             var targetTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp > hpSwitch1), new Sequence(
                 new SetColor(bb, Color.Chartreuse), targetTree
@@ -78,9 +84,7 @@ namespace CVB {
                 new SetColor(bb, Color.DarkRed), frenzyTree
             ));
 
-            // var bt = new Sequence(new SetColor(bb, Color.Aqua), new PerformScan(bb));
-            // return new Selector(targetTreeWrapper, evasiveTreeWrapper, frenzyTreeWrapper);
-            return targetTree;
+            return new Selector(targetTreeWrapper, evasiveTreeWrapper);
         }
     }
 }
