@@ -20,5 +20,9 @@
             this.targetDistance = targetDistance;
             this.maxDistance = maxDistance;
         }
+
+        public bool ValueInRange(double value) {
+            return value < maxDistance && value > minDistance;
+        }
     }
 }

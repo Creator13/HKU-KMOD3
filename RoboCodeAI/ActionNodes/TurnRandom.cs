@@ -28,14 +28,7 @@ namespace BehaviourTree {
 
             tickCount++;
 
-            if (useParallel) {
-                blackboard.robot.SetTurnLeft(value);
-            }
-            else {
-                blackboard.robot.TurnLeft(value);
-            }
-
-            return NodeStatus.Success;
+            return new Turn(blackboard, value, useParallel).Run();
         }
     }
 }

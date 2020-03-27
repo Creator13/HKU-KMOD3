@@ -8,12 +8,12 @@ namespace BehaviourTree {
             this.range = range;
         }
 
-        /// <inheritdoc />
         public override NodeStatus Run() {
             var evt = blackboard.robot.LastScanEvent;
+            // Definitely not in range when no bot was scanned
             if (evt == null) return NodeStatus.Failed;
 
-            return evt.Distance > range.minDistance && evt.Distance < range.maxDistance ? NodeStatus.Success : NodeStatus.Failed;
+            return range.ValueInRange(evt.Distance) ? NodeStatus.Success : NodeStatus.Failed;
         }
     }
 }

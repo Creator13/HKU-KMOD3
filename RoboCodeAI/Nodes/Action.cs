@@ -4,8 +4,8 @@ namespace BehaviourTree {
     public abstract class Action : BTNode {
         protected readonly Blackboard blackboard;
 
-        protected Action(Blackboard blackboard) {
-            this.blackboard = blackboard;
+        protected Action(Blackboard bb) {
+            this.blackboard = bb;
         }
     }
 }

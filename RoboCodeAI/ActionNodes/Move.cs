@@ -6,34 +6,47 @@ namespace BehaviourTree {
         private readonly bool useParallel;
         private double distance;
 
+        /// <param name="bb">Robot blackboard</param>
+        /// <param name="distance">The distance the bot will move</param>
+        /// <param name="useParallel">If true, this node will use the "set" variant of the move function (AdvancedRobot
+        /// only)</param>
         public Move(Blackboard bb, double distance, bool useParallel = false) : base(bb) {
             this.distance = distance;
             this.useParallel = useParallel;
         }
-        
+
         public override NodeStatus Run() {
             var bot = blackboard.robot;
-            
-            // if ((bot.Heading > 45 && bot.Heading < 135) || (bot.Heading > 225 && bot.Heading < 315)) {
-                if (bot.X + Math.Abs(distance) > bot.BattleFieldWidth - 25) {
-                    // distance = bot.BattleFieldWidth - bot.X;
-                    distance *= -1;
+
+            // Minimal wall bump prevention
+            if (bot.Direction == Direction.East || bot.Direction == Direction.West) {
+                if (bot.X + distance > bot.BattleFieldWidth - 100) {
+                    // Heading towards east wall
+                    if (bot.Direction == Direction.East && distance > 0 || bot.Direction == Direction.West && distance < 0) {
+                        distance *= -1;
+                    }
                 }
-                else if (bot.X - Math.Abs(distance) < 25) {
-                    // distance = bot.X;
-                    distance *= -1;
+                else if (bot.X - distance < 100) {
+                    // Heading towards west wall
+                    if (bot.Direction == Direction.West && distance > 0 || bot.Direction == Direction.East && distance < 0) {
+                        distance *= -1;
+                    }
                 }
-            // }
-            // else {
-                if (bot.Y + Math.Abs(distance) > bot.BattleFieldHeight - 25) {
-                    // distance = bot.BattleFieldHeight - bot.Y;
-                    distance *= -1;
+            }
+            else {
+                if (bot.Y + distance > bot.BattleFieldHeight - 100) {
+                    // Heading towards north wall
+                    if (bot.Direction == Direction.North && distance > 0 || bot.Direction == Direction.South && distance < 0) {
+                        distance *= -1;
+                    }
                 }
-                else if (bot.Y - Math.Abs(distance) < 25) {
-                    // distance = bot.Y;
-                    distance *= -1;
+                else if (bot.Y - distance < 100) {
+                    // Heading towards south wall
+                    if (bot.Direction == Direction.South && distance > 0 || bot.Direction == Direction.North && distance < 0) {
+                        distance *= -1;
+                    }
                 }
-            // }
+            }
 
             if (useParallel) {
                 blackboard.robot.SetAhead(distance);
@@ -41,7 +54,7 @@ namespace BehaviourTree {
             else {
                 blackboard.robot.Ahead(distance);
             }
-            
+
             return NodeStatus.Success;
         }
     }

@@ -5,8 +5,34 @@ using Robocode;
 // ReSharper disable FunctionNeverReturns
 
 namespace CVB {
+    public enum Direction {
+        North,
+        East,
+        South,
+        West
+    }
+
     public class Peter : AdvancedRobot {
         public ScannedRobotEvent LastScanEvent { get; private set; }
+
+        public Direction Direction {
+            get {
+                if (Heading > 315 && Heading < 360 || Heading > 0 && Heading < 45) {
+                    return Direction.North;
+                }
+                else if (Heading > 45 && Heading < 135) {
+                    return Direction.East;
+                }
+                else if (Heading > 135 && Heading < 225) {
+                    return Direction.South;
+                }
+                else if (Heading > 225 && Heading < 315) {
+                    return Direction.West;
+                }
+
+                return default;
+            }
+        }
 
         public override void Run() {
             ClearData();
@@ -59,32 +85,42 @@ namespace CVB {
                     new Sequence(
                         new TurnGunToTarget(bb),
                         new SuccessIfFailed(new AdjustGunDirectionForTargetVelocity(bb)),
-                        new Fire(bb)
+                        new Fire(bb, Rules.MAX_BULLET_POWER)
                     )
                 )
             );
+            // Evasive tree is the most powerful one
             var evasiveTree = new Sequence(
-                new MoveRandom(bb, -150, 150, true),
+                new PerformScan(bb),
+                new MoveRandom(bb, -250, 250, true),
                 new TurnRandom(bb, -100, 100, true),
-                new ExecutePending(bb)
+                new TurnGunToTarget(bb, true),
+                new ExecutePending(bb),
+                new Selector(
+                    new InTargetRange(bb, new FiringRange(0, 100, 250)),
+                    new TargetStill(bb)
+                ),
+                new AdjustGunDirectionForTargetVelocity(bb),
+                new Fire(bb, Rules.MAX_BULLET_POWER)
             );
             var frenzyTree = new Sequence(
-                
+                new Turn(bb, 360)
             );
 
             var targetTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp > hpSwitch1), new Sequence(
                 new SetColor(bb, Color.Chartreuse), targetTree
             ));
 
-            var evasiveTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp <= hpSwitch1 && hp > hpSwitch2), new Sequence(
+            var evasiveTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp <= hpSwitch1), new Sequence(
                 new SetColor(bb, Color.Aqua), evasiveTree
             ));
 
-            var frenzyTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp <= hpSwitch2), new Sequence(
-                new SetColor(bb, Color.DarkRed), frenzyTree
-            ));
+            // var frenzyTreeWrapper = new Sequence(new EnergyConditional(bb, hp => hp <= hpSwitch2), new Sequence(
+            //     new SetColor(bb, Color.DarkRed), frenzyTree
+            // ));
 
             return new Selector(targetTreeWrapper, evasiveTreeWrapper);
+            // return evasiveTree;
         }
     }
 }

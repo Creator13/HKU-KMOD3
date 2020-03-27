@@ -49,6 +49,8 @@
     <Compile Include="ActionNodes\Move.cs" />
     <Compile Include="ActionNodes\MoveRandom.cs" />
     <Compile Include="ActionNodes\MoveToTarget.cs" />
+    <Compile Include="ActionNodes\TargetStill.cs" />
+    <Compile Include="ActionNodes\Turn.cs" />
     <Compile Include="ActionNodes\TurnGunToTarget.cs" />
     <Compile Include="ActionNodes\TurnRandom.cs" />
     <Compile Include="ActionNodes\TurnToTarget.cs" />

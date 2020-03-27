@@ -3,10 +3,17 @@ using Robocode;
 
 namespace BehaviourTree {
     public class Fire : Action {
-        public Fire(Blackboard bb) : base(bb) { }
+        private readonly double power;
+
+        public Fire(Blackboard bb, double power) : base(bb) {
+            this.power = power;
+        }
 
         public override NodeStatus Run() {
-            blackboard.robot.Fire(Rules.MAX_BULLET_POWER);
+            // Do not fire if found no target was scanned
+            if (blackboard.robot.LastScanEvent == null) return NodeStatus.Failed;
+
+            blackboard.robot.Fire(power);
             return NodeStatus.Success;
         }
     }
