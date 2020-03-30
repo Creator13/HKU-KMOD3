@@ -21,20 +21,14 @@ namespace BehaviourTree {
 
             // Turn left or right depending on what is shortest
             if (bearingFromGun < 0) {
-                if (useParallel) {
                     blackboard.robot.SetTurnGunLeft(Math.Abs(bearingFromGun));
-                }
-                else {
-                    blackboard.robot.TurnGunLeft(Math.Abs(bearingFromGun));
-                }
             }
             else if (bearingFromGun > 0) {
-                if (useParallel) {
                     blackboard.robot.SetTurnGunRight(Math.Abs(bearingFromGun));
-                }
-                else {
-                    blackboard.robot.TurnGunRight(Math.Abs(bearingFromGun));
-                }
+            }
+
+            if (!useParallel) {
+                blackboard.robot.Execute();
             }
 
             return NodeStatus.Success;

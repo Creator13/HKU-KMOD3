@@ -1,8 +1,6 @@
 ﻿namespace BehaviourTree {
-    public class Sequence : CompositeNode {
-        public Sequence(params BTNode[] children) {
-            this.children = children;
-        }
+    public class Sequence : Composite {
+        public Sequence(params BTNode[] children) : base(children) { }
 
         public override NodeStatus Run() {
             foreach (var child in children) {

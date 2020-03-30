@@ -15,7 +15,6 @@ namespace CVB {
 
     public class Peter : AdvancedRobot {
         public ScannedRobotEvent LastScanEvent { get; private set; }
-        public HitRobotEvent LastRobotHitEvent { get; private set; }
 
         public Direction Direction {
             get {
@@ -57,10 +56,6 @@ namespace CVB {
             LastScanEvent = evt;
         }
 
-        public override void OnHitRobot(HitRobotEvent evt) {
-            LastRobotHitEvent = evt;
-        }
-
         public override void OnWin(WinEvent evt) {
             SetTurnLeft(3600);
             SetTurnGunRight(3600);
@@ -69,7 +64,6 @@ namespace CVB {
 
         public void ClearData() {
             LastScanEvent = null;
-            LastRobotHitEvent = null;
         }
 
         private static BTNode BuildBehaviorTree(Blackboard bb) {
@@ -93,13 +87,12 @@ namespace CVB {
                     new Sequence(
                         // Move to target when out of preferred distance range
                         new Invert(new InTargetRange(bb, distanceRange)),
-                        new Sequence(
-                            new TurnToTarget(bb),
-                            new MoveToTarget(bb, distanceRange)
-                        )
+                        new TurnToTarget(bb),
+                        new MoveToTarget(bb, distanceRange)
                     )
                 )
             );
+            
             // Evasive tree is the most powerful one
             var evasiveTree = new Sequence(
                 new PerformScan(bb),
@@ -117,11 +110,12 @@ namespace CVB {
                 new AdjustGunDirectionForTargetVelocity(bb),
                 new Fire(bb, Rules.MAX_BULLET_POWER)
             );
+            
             var distantRange = new Range(350, 351, 550);
             var distantTree = new Sequence(
                 new PerformScan(bb),
                 // Move away from target using a big range
-                new SuccessIfFailed(new Selector(
+                new SuccessIfFailed(new Sequence(
                     new InTargetRange(bb, distantRange),
                     new Sequence(
                         new TurnToTarget(bb, useParallel: true),
@@ -130,7 +124,7 @@ namespace CVB {
                     )
                 )),
                 new Turn(bb, 90, useParallel: true),
-                new Move(bb, 50, useParallel:true),
+                new Move(bb, 50, useParallel: true),
                 new TurnGunToTarget(bb, useParallel: true),
                 new ExecutePending(bb),
                 new Selector(

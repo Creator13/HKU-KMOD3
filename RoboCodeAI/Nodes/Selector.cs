@@ -1,8 +1,6 @@
 ﻿namespace BehaviourTree {
-    public class Selector : CompositeNode {
-        public Selector(params BTNode[] children) {
-            this.children = children;
-        }
+    public class Selector : Composite {
+        public Selector(params BTNode[] children) : base(children) { }
 
         public override NodeStatus Run() {
             if (children.Length == 0) return NodeStatus.Success;

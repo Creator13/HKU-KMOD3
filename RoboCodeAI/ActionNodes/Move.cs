@@ -48,11 +48,10 @@ namespace BehaviourTree {
                 }
             }
 
-            if (useParallel) {
-                blackboard.robot.SetAhead(distance);
-            }
-            else {
-                blackboard.robot.Ahead(distance);
+            blackboard.robot.SetAhead(distance);
+
+            if (!useParallel) {
+                blackboard.robot.Execute();
             }
 
             return NodeStatus.Success;

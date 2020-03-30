@@ -1,6 +1,4 @@
-﻿using Robocode;
-
-namespace CVB {
+﻿namespace CVB {
     public class Blackboard {
         public Peter robot;
     }
