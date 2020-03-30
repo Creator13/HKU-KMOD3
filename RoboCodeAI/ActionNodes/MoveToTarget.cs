@@ -1,6 +1,9 @@
 ﻿using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Moves towards the targetDistance of a range object, based on the last scanned target.
+    /// </summary>
     public class MoveToTarget : Action {
         private readonly Range range;
         private readonly bool useParallel;
@@ -8,10 +11,6 @@ namespace BehaviourTree {
         public MoveToTarget(Blackboard bb, Range range, bool useParallel = false) : base(bb) {
             this.range = range;
             this.useParallel = useParallel;
-        }
-
-        public MoveToTarget(Blackboard bb, double distance) : base(bb) {
-            range = new Range(distance - 50, distance, distance + 50);
         }
 
         public override NodeStatus Run() {
@@ -26,16 +25,14 @@ namespace BehaviourTree {
             BTNode node;
             if (evt.Distance < range.minDistance) {
                 // Move back if too close
-                node = new Move(blackboard, range.minDistance - evt.Distance, useParallel);
+                node = new Move(blackboard, range.targetDistance - evt.Distance, useParallel);
             }
             else {
                 // Move forward if too far
                 node = new Move(blackboard, evt.Distance - range.targetDistance, useParallel);
             }
 
-            node.Run();
-
-            return NodeStatus.Running;
+            return node.Run();
         }
     }
 }

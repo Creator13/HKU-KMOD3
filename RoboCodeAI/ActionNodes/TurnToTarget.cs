@@ -2,6 +2,9 @@
 using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Turns the bot's heading towards the target.
+    /// </summary>
     public class TurnToTarget : Action {
         private readonly bool useParallel;
         public TurnToTarget(Blackboard bb, bool useParallel = false) : base(bb) {

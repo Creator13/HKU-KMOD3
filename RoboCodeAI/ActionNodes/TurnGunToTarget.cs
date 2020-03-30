@@ -1,9 +1,11 @@
 ﻿using System;
 using CVB;
-using Robocode.Util;
 using Utils = Robocode.Util.Utils;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Turns the gun directly towards the target.
+    /// </summary>
     public class TurnGunToTarget : Action {
         private readonly bool useParallel;
         public TurnGunToTarget(Blackboard bb, bool useParallel = false) : base(bb) {

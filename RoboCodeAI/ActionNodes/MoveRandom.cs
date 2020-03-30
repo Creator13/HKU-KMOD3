@@ -2,6 +2,10 @@
 using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Moves the bot by a random amount. Uses a smoothing of five frames, meaning that every five frames a new random
+    /// value is generated.
+    /// </summary>
     public class MoveRandom : Action {
         private readonly double min;
         private readonly double max;
@@ -21,6 +25,7 @@ namespace BehaviourTree {
         }
         
         public override NodeStatus Run() {
+            // Only regenerate a new random value every 5 frames, or if the value is 0.
             if (value == 0 || tickCount == 5) {
                 value = Utils.RandInRange(min, max);
                 tickCount = 0;

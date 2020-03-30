@@ -1,7 +1,9 @@
-﻿using System;
-using CVB;
+﻿using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Move the bot a specified distance. Tries to avoid running into walls.
+    /// </summary>
     public class Move : Action {
         private readonly bool useParallel;
         private double distance;
@@ -18,7 +20,7 @@ namespace BehaviourTree {
         public override NodeStatus Run() {
             var bot = blackboard.robot;
 
-            // Minimal wall bump prevention
+            // Minimal wall bump prevention by flipping move direction
             if (bot.Direction == Direction.East || bot.Direction == Direction.West) {
                 if (bot.X + distance > bot.BattleFieldWidth - 100) {
                     // Heading towards east wall

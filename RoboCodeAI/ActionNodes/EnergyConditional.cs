@@ -2,6 +2,9 @@
 using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Runs a check against the energy of the robot.
+    /// </summary>
     public class EnergyConditional : Action {
         private readonly Predicate<double> condition;
 

@@ -2,6 +2,9 @@
 using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Change the color of the robot body.
+    /// </summary>
     public class SetColor : Action {
         private Color color;
 

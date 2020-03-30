@@ -2,6 +2,10 @@
 using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Turns the bot by a random number of degrees. Uses a smoothing of five frames, meaning that every five frames a
+    /// new random value is generated.
+    /// </summary>
     public class TurnRandom : Action {
         private readonly double min;
         private readonly double max;
@@ -21,6 +25,7 @@ namespace BehaviourTree {
         }
 
         public override NodeStatus Run() {
+            // Only regenerate the value every five frames for smoother movement
             if (value == 0 || tickCount == 5) {
                 value = Utils.RandInRange(min, max);
                 tickCount = 0;

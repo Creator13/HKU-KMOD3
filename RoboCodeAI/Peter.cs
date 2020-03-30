@@ -67,7 +67,7 @@ namespace CVB {
         }
 
         private static BTNode BuildBehaviorTree(Blackboard bb) {
-            var distanceRange = new Range(75, 160, 200);
+            var movementRange = new Range(75, 160, 200);
             var firingRange = new Range(0, 100, 200);
 
             var targetTree = new Sequence(
@@ -86,9 +86,9 @@ namespace CVB {
                     ),
                     new Sequence(
                         // Move to target when out of preferred distance range
-                        new Invert(new InTargetRange(bb, distanceRange)),
+                        new Invert(new InTargetRange(bb, movementRange)),
                         new TurnToTarget(bb),
-                        new MoveToTarget(bb, distanceRange)
+                        new MoveToTarget(bb, movementRange)
                     )
                 )
             );
@@ -115,7 +115,7 @@ namespace CVB {
             var distantTree = new Sequence(
                 new PerformScan(bb),
                 // Move away from target using a big range
-                new SuccessIfFailed(new Sequence(
+                new AlwaysSuccess(new Sequence(
                     new InTargetRange(bb, distantRange),
                     new Sequence(
                         new TurnToTarget(bb, useParallel: true),
@@ -123,10 +123,13 @@ namespace CVB {
                         new ExecutePending(bb)
                     )
                 )),
+                // Move in a square
                 new Turn(bb, 90, useParallel: true),
                 new Move(bb, 50, useParallel: true),
+                // Keep gun aimed at target
                 new TurnGunToTarget(bb, useParallel: true),
                 new ExecutePending(bb),
+                // Shoot if target is close enough
                 new Selector(
                     new InTargetRange(bb, firingRange),
                     new TargetStill(bb)
@@ -151,9 +154,6 @@ namespace CVB {
             ));
 
             return new Selector(targetTreeWrapper, evasiveTreeWrapper, distantTreeWrapper);
-            // return evasiveTree;
-            // return targetTree;
-            // return distantTree;
         }
     }
 }

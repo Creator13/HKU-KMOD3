@@ -1,6 +1,9 @@
 ﻿using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Run a scan.
+    /// </summary>
     public class PerformScan : Action {
         private readonly double angle;
         private readonly bool relative;

@@ -1,6 +1,9 @@
 ﻿using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Will fail when the bot is not in the specified range of the target.
+    /// </summary>
     public class InTargetRange : Action {
         private readonly Range range;
 

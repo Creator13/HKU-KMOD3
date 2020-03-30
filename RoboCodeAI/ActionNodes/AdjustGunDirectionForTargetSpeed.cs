@@ -1,10 +1,12 @@
 ﻿using System;
 using CVB;
 using Robocode;
-using Robocode.Util;
 using Utils = Robocode.Util.Utils;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Turns the gun predicting the position of the target in the next frame.
+    /// </summary>
     public class AdjustGunDirectionForTargetVelocity : Action {
         public AdjustGunDirectionForTargetVelocity(Blackboard bb) : base(bb) { }
 

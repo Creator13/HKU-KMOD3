@@ -1,6 +1,9 @@
 ﻿using CVB;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Turns the bot (left) by a specified angle.
+    /// </summary>
     public class Turn : Action {
         private readonly double angle;
         private readonly bool useParallel;

@@ -1,7 +1,9 @@
 ﻿using CVB;
-using Robocode;
 
 namespace BehaviourTree {
+    /// <summary>
+    /// Fires a bullet with a specified power.
+    /// </summary>
     public class Fire : Action {
         private readonly double power;
 

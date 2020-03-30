@@ -58,7 +58,7 @@
     <Compile Include="ActionNodes\SetColor.cs" />
     <Compile Include="Blackboard.cs" />
     <Compile Include="Decorators\Invert.cs" />
-    <Compile Include="Decorators\SuccessIfFailed.cs" />
+    <Compile Include="Decorators\AlwaysSuccess.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Peter.cs" />
     <Compile Include="Nodes\Action.cs" />
