@@ -2,14 +2,16 @@
 
 namespace BehaviourTree {
     public class MoveToTarget : Action {
-        private readonly FiringRange range;
+        private readonly Range range;
+        private readonly bool useParallel;
 
-        public MoveToTarget(Blackboard bb, FiringRange range) : base(bb) {
+        public MoveToTarget(Blackboard bb, Range range, bool useParallel = false) : base(bb) {
             this.range = range;
+            this.useParallel = useParallel;
         }
 
         public MoveToTarget(Blackboard bb, double distance) : base(bb) {
-            range = new FiringRange(distance - 50, distance, distance + 50);
+            range = new Range(distance - 50, distance, distance + 50);
         }
 
         public override NodeStatus Run() {
@@ -21,14 +23,17 @@ namespace BehaviourTree {
             // Fail when the bot is not facing the target (allowance of 8deg)
             if (!(evt.Bearing > -8 && evt.Bearing < 8)) return NodeStatus.Failed;
 
+            BTNode node;
             if (evt.Distance < range.minDistance) {
                 // Move back if too close
-                blackboard.robot.Back(range.minDistance - evt.Distance);
+                node = new Move(blackboard, range.minDistance - evt.Distance, useParallel);
             }
             else {
                 // Move forward if too far
-                blackboard.robot.Ahead(evt.Distance - range.targetDistance);
+                node = new Move(blackboard, evt.Distance - range.targetDistance, useParallel);
             }
+
+            node.Run();
 
             return NodeStatus.Running;
         }

@@ -45,6 +45,7 @@
     <Compile Include="ActionNodes\EnergyConditional.cs" />
     <Compile Include="ActionNodes\ExecutePending.cs" />
     <Compile Include="ActionNodes\Fire.cs" />
+    <Compile Include="ActionNodes\RamTarget.cs" />
     <Compile Include="ActionNodes\InTargetRange.cs" />
     <Compile Include="ActionNodes\Move.cs" />
     <Compile Include="ActionNodes\MoveRandom.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="ActionNodes\SetColor.cs" />
     <Compile Include="Decorators\Invert.cs" />
     <Compile Include="Decorators\SuccessIfFailed.cs" />
-    <Compile Include="FiringRange.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="Peter.cs" />
     <Compile Include="Nodes\Action.cs" />
     <Compile Include="Nodes\Blackboard.cs" />

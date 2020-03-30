@@ -2,9 +2,9 @@
 
 namespace BehaviourTree {
     public class InTargetRange : Action {
-        private readonly FiringRange range;
+        private readonly Range range;
 
-        public InTargetRange(Blackboard bb, FiringRange range) : base(bb) {
+        public InTargetRange(Blackboard bb, Range range) : base(bb) {
             this.range = range;
         }
 

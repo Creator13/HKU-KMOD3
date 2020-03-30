@@ -3,7 +3,10 @@ using CVB;
 
 namespace BehaviourTree {
     public class TurnToTarget : Action {
-        public TurnToTarget(Blackboard bb) : base(bb) { }
+        private readonly bool useParallel;
+        public TurnToTarget(Blackboard bb, bool useParallel = false) : base(bb) {
+            this.useParallel = useParallel;
+        }
 
         public override NodeStatus Run() {
             var evt = blackboard.robot.LastScanEvent;
@@ -21,7 +24,9 @@ namespace BehaviourTree {
                 }
             }
 
-            blackboard.robot.Execute();
+            if (!useParallel) {
+                blackboard.robot.Execute();
+            }
 
             return NodeStatus.Success;
         }
